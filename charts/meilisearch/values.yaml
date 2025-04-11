@@ -73,7 +73,7 @@ priorityClassName: ""
 # -- Service HTTP port
 service:
   # -- Kubernetes Service type
-  type: ClusterIP
+  type: LoadBalancer
   port: 7700
   # -- Additional annotations for service
   annotations: {}
@@ -117,7 +117,7 @@ ingress:
 
 persistence:
   # -- Enable persistence using PVC
-  enabled: false
+  enabled: true
   # -- PVC Access Mode
   accessMode: ReadWriteOnce
   ## Persistent Volume Storage Class
@@ -128,7 +128,7 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # -- PVC Storage Class
-  storageClass: ~
+  storageClass: longhorn
 
   ## Data Persistent Volume existing claim name
   ## Requires persistence.enabled: true
@@ -145,17 +145,12 @@ persistence:
 
 # -- Resources allocation (Requests and Limits)
 resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
+  limits:
+    cpu: "2"
+    memory: "2Gi"
+  requests:
+    cpu: "1"
+    memory: "1Gi"
 
 # -- Additional volumes for pod
 volumes: []
